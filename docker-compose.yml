@@ -1,0 +1,43 @@
+version: '2'
+services:
+    karp:
+        build:
+            context: .
+            dockerfile: Dockerfile.karp
+        ports:
+            - "8081:80"
+        volumes:
+            - ./backend:/var/www/app
+        links:
+            - elasticsearch
+            - wsauth
+            - mariadb
+    wsauth:
+        build:
+            context: .
+            dockerfile: Dockerfile.wsauth
+        ports:
+            - "8082:80"
+        volumes:
+            - ./dummyauth:/var/www/app
+    elasticsearch:
+        build:
+            context: .
+            dockerfile: Dockerfile.elastic
+        ports:
+            - "8083:9200"
+    mariadb:
+        image: mariadb
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=karp
+            - MYSQL_USER=karp
+            - MYSQL_PASSWORD=karp
+        ports:
+            - "8084:3306"
+    adminer:
+        image: clue/adminer
+        links:
+            - mariadb
+        ports:
+            - "8085:80"

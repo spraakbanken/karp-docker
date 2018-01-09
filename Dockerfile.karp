@@ -1,0 +1,64 @@
+#
+# Dockerfile for running WSGI apps in Apache.
+#
+# Mount the frontend on /var/www/html and the backend on
+# /var/www/app. The backend will be available on the URL /app/.
+#
+
+FROM fedora:latest
+RUN dnf install \
+        --quiet \
+        --assumeyes \
+        httpd \
+        mod_wsgi \
+        python \
+    && dnf --quiet clean all
+RUN { \
+        echo '<Directory /var/www/app>'; \
+        echo '  Require all granted'; \
+        # This might be too generous?
+        echo '  AllowOverride All'; \
+        # Required by mod_wsgi
+        echo '  Options +ExecCGI'; \
+        echo '  AddHandler wsgi-script .wsgi'; \
+        echo '</Directory>'; \
+        echo ''; \
+        echo 'Alias /app/ /var/www/app/'; \
+        echo ''; \
+        # Enable WSGI daemon mode
+        echo 'WSGIDaemonProcess local'; \
+        echo 'WSGIProcessGroup local'; \
+        echo ''; \
+        echo 'CustomLog /proc/self/fd/1 common'; \
+        echo 'ErrorLog /proc/self/fd/2' ; \
+    } > /etc/httpd/conf.d/local.conf
+# Only log to stdout/stderr
+RUN sed --in-place '/^\s*CustomLog\s/d' /etc/httpd/conf/httpd.conf
+
+# Install python modules
+COPY backend/requirements.txt /tmp/
+### These two lines can be removed when karp is python3
+RUN pip install virtualenv
+RUN virtualenv -p python3 venv3 --system-site-packages
+####
+RUN pip3 install pycountry
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+# Data directory
+RUN mkdir /var/www/data \
+    && chown apache:apache /var/www/data
+
+VOLUME /var/www/html
+VOLUME /var/www/app
+
+EXPOSE 80
+
+WORKDIR /var/www/app
+ENV PATH=/var/www/app:$PATH
+
+
+
+
+
+
+CMD httpd -C "ServerName $HOSTNAME" -D FOREGROUND
