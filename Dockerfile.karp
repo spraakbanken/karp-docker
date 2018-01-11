@@ -36,7 +36,7 @@ RUN { \
 RUN sed --in-place '/^\s*CustomLog\s/d' /etc/httpd/conf/httpd.conf
 
 # Install python modules
-COPY backend/requirements.txt /tmp/
+COPY karp-backend/requirements.txt /tmp/
 ### These two lines can be removed when karp is python3
 RUN pip install virtualenv
 RUN virtualenv -p python3 venv3 --system-site-packages
