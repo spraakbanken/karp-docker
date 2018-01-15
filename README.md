@@ -7,16 +7,23 @@ To install and run Karp-b in the Docker setup, do the following steps:
 
 * Install [Docker](TODO)
 * Download this repo `git clone https://github.com/spraakbanken/karp-docker.git`
-* `cd karp-docker`
+* `cd karp-docker` (and stay here for the next commands)
+* If you're Anne: `git fetch` then `git checkout dev`
 * Install karp-backend `git clone https://github.com/spraakbanken/karp-backend.git`
+* If you're Anne: `cd karp-backend` then `git fetch` then `git checkout dev` then `cd ..`
 * Copy `karp-backend/config/config.json.example` to `karp-backend/config/conig.json` and modify it to suit your needs
   (see the [documentation](TODO pdf) for more information on this)
 * Setup Karps configurations. Options:
+    * To use the a default test lexicon:
+        * Run `chmod u+x installpanacea.sh`
+        * Run `./installpanacea.sh`
     * To set up your own lexicons:
         * Do the configurations necessary, see [documentation](TODO)
-        * Then un `./setup.sh path/to/karp/config/lexiconconf.json` (copy lexiconfconf to docker)
-    * To use the a default test lexicon, run `installpanacea.sh`
+        * Then run `./setup.sh path/to/karp/config/lexiconconf.json` (copy lexiconfconf to docker)
 * Run `docker-compose build`
 * Run `docker-compose up -d`
-* Test
+* Run `docker-compose run --rm karp python offline.py --create_metadata`
+* Run `docker-compose run --rm karp python offline.py --create_mode karp test`
+* Run `docker-compose run --rm karp python offline.py --publish_mode karp test`
+* Test: `curl 'localhost:8081/app/'`
 
