@@ -22,7 +22,8 @@ To install and run Karp-b in the Docker setup, do the following steps:
         * Then run `./setup.sh path/to/karp/config/lexiconconf.json` (copy lexiconfconf to docker)
 * Run `docker-compose build`
 * Run `docker-compose up -d`
-* Run `docker-compose run --rm karp python offline.py --create_metadata`
+* `cd karp-backend`
+* Run `docker-compose run --rm  karp python offline.py --create_metadata`
 * Run `docker-compose run --rm karp python offline.py --create_mode karp test`
 * Run `docker-compose run --rm karp python offline.py --publish_mode karp test`
 * Test: `curl 'localhost:8081/app/'`
