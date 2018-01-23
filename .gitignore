@@ -1,3 +1,6 @@
+# Ignore the karp-b directory (which is another git-repo)
+karp-backend
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

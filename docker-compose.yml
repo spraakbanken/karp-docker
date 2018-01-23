@@ -7,7 +7,7 @@ services:
         ports:
             - "8081:80"
         volumes:
-            - ./backend:/var/www/app
+          - ./karp-backend:/var/www/app
         links:
             - elasticsearch
             - wsauth
