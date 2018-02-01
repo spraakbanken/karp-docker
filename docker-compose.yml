@@ -26,6 +26,8 @@ services:
             dockerfile: Dockerfile.elastic
         ports:
             - "8083:9200"
+        environment:
+           - discovery.type=single-node
     mariadb:
         image: mariadb
         environment:
