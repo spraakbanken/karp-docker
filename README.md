@@ -5,7 +5,7 @@ Docker setup for Karp-b
 
 To install and run Karp-b in the Docker setup, do the following steps:
 
-* Install [Docker](https://docs.docker.com/engine/installation/)
+* Install [Docker](https://docs.docker.com/install/#server)
 * Download this repo `git clone https://github.com/spraakbanken/karp-docker.git`
 * `cd karp-docker` (and stay here for the next commands)
 * If you're Anne: `git fetch` then `git checkout dev`
