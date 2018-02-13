@@ -5,18 +5,19 @@ Docker setup for Karp-b
 
 To install and run Karp-b in the Docker setup, do the following steps:
 
-* Install [Docker](TODO)
+* Install [Docker](https://docs.docker.com/engine/installation/)
 * Download this repo `git clone https://github.com/spraakbanken/karp-docker.git`
 * `cd karp-docker` (and stay here for the next commands)
 * Install karp-backend `git clone https://github.com/spraakbanken/karp-backend.git`
 * Copy `karp-backend/config/config.json.example` to `karp-backend/config/conig.json` and modify it to suit your needs
-  (see the [documentation](TODO pdf) for more information on this)
+  (see the [documentation](https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md) for more information on this)
+  https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md
 * Setup Karps configurations. Options:
     * To use the a default test lexicon:
         * Run `chmod u+x installpanacea.sh`
         * Run `./installpanacea.sh`
     * To set up your own lexicons:
-        * Do the configurations necessary, see [documentation](TODO)
+        * Do the configurations necessary, see [documentation](https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md)
         * Then run `./setup.sh path/to/karp/config/lexiconconf.json` (copy lexiconfconf to docker)
 * Run `docker-compose build`
 * Run `docker-compose up -d`
