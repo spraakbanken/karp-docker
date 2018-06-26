@@ -12,7 +12,7 @@ To install and run Karp-b in the Docker setup, do the following steps:
 * Copy `karp-backend/config/config.json.example` to `karp-backend/config/conig.json` and modify it to suit your needs
   (see the [documentation](https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md) for more information on this)
   https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md
-* Setup Karps configurations. Options:
+* Setup Karp's configurations. Options:
     * To use the a default test lexicon:
         * Run `chmod u+x installpanacea.sh`
         * Run `./installpanacea.sh`
