@@ -26,6 +26,12 @@ services:
             dockerfile: Dockerfile.elastic
         ports:
             - "8083:9200"
+        environment:
+           - discovery.type=single-node
+           - xpack.security.enabled=false
+           - xpack.monitoring.enabled=false
+           - xpack.graph.enabled=false
+           - xpack.watcher.enabled=false
     mariadb:
         image: mariadb
         environment:
