@@ -14,9 +14,12 @@ def index():
 @app.route('/authenticate', methods=['GET', 'POST'])
 def resources():
     lexlist = {}
-    print os.listdir('.')
     lexiconconfig = json.load(open('lexiconconf.json'))
-    if request.authorization is not None:
+    request.get_data()
+    data = request.form
+    if data and data is not None:
+        user = data.get('username', '')
+    elif request.authorization is not None:
         user = request.authorization.username
     else:
         user = 'dummyuser'
