@@ -1,0 +1,3 @@
+[submodule "karp-backend"]
+	path = karp-backend
+	url = https://github.com/spraakbanken/karp-backend
