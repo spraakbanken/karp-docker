@@ -1,17 +1,21 @@
-Docker setup for Karp-b
-=======================
+Docker setup for karp-backend
+=============================
 
 **This package - code and documentation - is still under construction.**
 
-To install and run Karp-b in the Docker setup, do the following steps:
+To install and run [karp-backend](https://github.com/spraakbanken/karp-backend) in the Docker setup, do the following steps:
 
 * Install [Docker](https://docs.docker.com/install/#server)
-* Download this repo `git clone https://github.com/spraakbanken/karp-docker.git`
-* `cd karp-docker` (and stay here for the next commands)
-* Install karp-backend `git clone https://github.com/spraakbanken/karp-backend.git`
-* Copy `karp-backend/config/config.json.example` to `karp-backend/config/conig.json` and modify it to suit your needs
+* Clone this repo, in one of these ways
+  * Examples below show *ssh* clones but *https* can also be used...
+  * `git clone --recurse-submodules git@github.com/spraakbanken/karp-docker.git`
+  * 1. `git clone git@github.com/spraakbanken/karp-docker.git`
+    2. `cd karp-docker`
+    3. `git submodule init`
+    4. `git submodule update`
+* `cd karp-docker` if not already here (and stay here for the next commands)
+* Copy `karp-backend/config/config.json.example` to `karp-backend/config/config.json` and modify it to suit your needs
   (see the [documentation](https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md) for more information on this)
-  https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md
 * Setup Karp's configurations. Options:
     * To use the a default test lexicon:
         * Run `chmod u+x installpanacea.sh`
@@ -26,4 +30,3 @@ To install and run Karp-b in the Docker setup, do the following steps:
 * Run `docker-compose run --rm karp python offline.py --create_mode karp test`
 * Run `docker-compose run --rm karp python offline.py --publish_mode karp test`
 * Test: `curl 'localhost:8081/app/'`
-
