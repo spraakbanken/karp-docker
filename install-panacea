@@ -1,0 +1,46 @@
+#!/bin/sh
+PYTHON_COMMAND=$1
+PYTHON_COMMAND=${PYTHON_COMMAND:="python"}
+echo "using python: ${PYTHON_COMMAND}"
+# Check python version
+$PYTHON_COMMAND --version
+a=$($PYTHON_COMMAND -c 'import sys; sys.exit(1 if sys.hexversion<0x03070000 else 0)')
+PYTHON_VER_LE_36=$?
+b=$($PYTHON_COMMAND -c 'import sys; sys.exit(1 if sys.hexversion<0x03030000 else 0)')
+PYTHON_VER_LE_32=$?
+if [[ "$PYTHON_VER_LE_36" -eq 0 ]]
+then
+    echo "WARNING: Currently only python 3.6 or lower is the highest version supported."
+    exit 1
+fi
+
+# Copy config files
+cp -v karp-backend/config/lexiconconf.json{.panacea,}
+cp -v karp-backend/config/lexiconconf.json dummyauth
+cp -v karp-backend/config/modes.json{.panacea,}
+cp -v karp-backend/config/mappings/fieldmappings_panacea.json{.panacea,}
+cp -v karp-backend/config/mappings/mappingconf_panacea.json{.panacea,}
+
+# Setup python virtual environment
+if [[ "$PYTHON_VER_LE_32" -eq 1 ]]
+then
+    virtualenv karp-backend/venv
+else
+    $PYTHON_COMMAND -m venv karp-backend/venv
+fi
+
+cd karp-backend
+source venv/bin/activate
+# update pip
+pip install --upgrade pip
+# install requirements
+pip install -r requirements.txt
+INSTALL_REQUIREMENTS=$?
+deactivate
+cd ..
+if [[ "$INSTALL_REQUIREMENTS" -eq 0 ]]
+then
+    echo "Finished installing."
+else
+    echo "Something went wrong. Check error messages"
+fi

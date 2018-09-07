@@ -18,8 +18,10 @@ To install and run [karp-backend](https://github.com/spraakbanken/karp-backend) 
   (see the [documentation](https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md) for more information on this)
 * Setup Karp's configurations. Options:
     * To use the a default test lexicon:
-        * Run `chmod u+x installpanacea.sh`
-        * Run `./installpanacea.sh`
+        * Run `chmod u+x install-panacea`
+        * Run `./install-panacea` or e.g. `./install-panacea python3.6`
+            - `install-panacea` takes the python command as argument.
+            - **NOTE** Currently only up to python 3.6 is supported. 
     * To set up your own lexicons:
         * Do the configurations necessary, see [documentation](https://github.com/spraakbanken/karp-backend/blob/master/doc/manual.md)
         * Then run `./setup.sh path/to/karp/config/lexiconconf.json` (copy lexiconfconf to docker)
